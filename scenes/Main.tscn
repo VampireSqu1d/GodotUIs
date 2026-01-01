@@ -1,0 +1,669 @@
+[gd_scene load_steps=23 format=3 uid="uid://cccpelfex1ikk"]
+
+[ext_resource type="Texture2D" uid="uid://222lghb5tvv" path="res://icons/menu.svg" id="1"]
+[ext_resource type="Script" uid="uid://cfnw528rq1pi3" path="res://scripts/ToggleButton.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://ci51ob0au4tdu" path="res://scenes/navItem.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dtbr5lbl3r8fp" path="res://scenes/ComponentButton.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://dkedpexngtit6" path="res://icons/briefcase.svg" id="5"]
+[ext_resource type="Texture2D" uid="uid://07bkmd7tgsfy" path="res://icons/book.svg" id="6"]
+[ext_resource type="Texture2D" uid="uid://c50b6eedgstdj" path="res://icons/settings.svg" id="7"]
+[ext_resource type="Texture2D" uid="uid://dre4yn6p27byw" path="res://icons/home.svg" id="8"]
+[ext_resource type="Script" uid="uid://cn87wh3fgjkuo" path="res://scripts/TitleBar.gd" id="9"]
+[ext_resource type="Texture2D" uid="uid://da0tr5jydnp8o" path="res://icons/maximize.svg" id="10"]
+[ext_resource type="Texture2D" uid="uid://c4d44pk06vqb8" path="res://icons/minus.svg" id="11"]
+[ext_resource type="FontFile" path="res://resources/bold_font.tres" id="12"]
+[ext_resource type="FontFile" uid="uid://dxmth8b8iv1mg" path="res://fonts/CrimsonText-Regular.ttf" id="13"]
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.0431373, 0.0156863, 0.164706, 1)
+
+[sub_resource type="Theme" id="6"]
+default_font = ExtResource("12")
+
+[sub_resource type="StyleBoxFlat" id="7"]
+bg_color = Color(0.0431373, 0.0156863, 0.164706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.0784314, 0.109804, 0.25098, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="FontFile" id="9"]
+fallbacks = Array[Font]([ExtResource("13")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="10"]
+bg_color = Color(0.0431373, 0.0156863, 0.164706, 1)
+
+[sub_resource type="Animation" id="2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/SideBar:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/SideBar/VBoxContainer/top_container:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 94)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/SideBar/VBoxContainer:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 600)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HBoxContainer/SideBar/Settings_bottom_Container:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(70, 50)]
+}
+
+[sub_resource type="Animation" id="3"]
+resource_name = "sidebar_anim"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/SideBar:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 600), Vector2(150, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/SideBar/VBoxContainer/top_container:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 94), Vector2(150, 94)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/SideBar/VBoxContainer:size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 600), Vector2(150, 600)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HBoxContainer/SideBar/Settings_bottom_Container:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(70, 50), Vector2(150, 50)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x5phq"]
+_data = {
+&"RESET": SubResource("2"),
+&"sidebar_anim": SubResource("3")
+}
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0745098, 0.0352941, 0.239216, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SideBar" type="Panel" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(70, 600)
+layout_mode = 2
+theme_override_styles/panel = SubResource("4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/SideBar"]
+clip_contents = true
+layout_mode = 0
+offset_right = 70.0
+offset_bottom = 600.0
+
+[node name="top_container" type="VBoxContainer" parent="HBoxContainer/SideBar/VBoxContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="ToggleButton" type="Control" parent="HBoxContainer/SideBar/VBoxContainer/top_container"]
+clip_contents = true
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 2
+script = ExtResource("2")
+
+[node name="bg" type="ColorRect" parent="HBoxContainer/SideBar/VBoxContainer/top_container/ToggleButton"]
+clip_contents = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.0784314, 0.109804, 0.25098, 1)
+
+[node name="Menu" type="Sprite2D" parent="HBoxContainer/SideBar/VBoxContainer/top_container/ToggleButton"]
+position = Vector2(35, 25)
+texture = ExtResource("1")
+
+[node name="Home" parent="HBoxContainer/SideBar/VBoxContainer/top_container" instance=ExtResource("3")]
+layout_mode = 2
+icon = ExtResource("8")
+active = true
+page = NodePath("../../../../Body/BodyContent/HomePage")
+
+[node name="Learn" parent="HBoxContainer/SideBar/VBoxContainer/top_container" instance=ExtResource("3")]
+layout_mode = 2
+icon = ExtResource("6")
+label = "Learn"
+page = NodePath("../../../../Body/BodyContent/Learn")
+
+[node name="Addons" parent="HBoxContainer/SideBar/VBoxContainer/top_container" instance=ExtResource("3")]
+layout_mode = 2
+icon = ExtResource("5")
+label = "Add-ons"
+page = NodePath("../../../../Body/BodyContent/Addons")
+
+[node name="box_container" type="VBoxContainer" parent="HBoxContainer/SideBar/VBoxContainer"]
+layout_mode = 2
+
+[node name="Settings_bottom_Container" type="VBoxContainer" parent="HBoxContainer/SideBar"]
+layout_mode = 0
+offset_top = 550.0
+offset_right = 70.0
+offset_bottom = 600.0
+
+[node name="Settings" parent="HBoxContainer/SideBar/Settings_bottom_Container" instance=ExtResource("3")]
+layout_mode = 2
+icon = ExtResource("7")
+label = "Settings"
+page = NodePath("../../../Body/BodyContent/SetingsPage")
+
+[node name="Body" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopBar" type="HBoxContainer" parent="HBoxContainer/Body"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleBar" type="Control" parent="HBoxContainer/Body/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9")
+
+[node name="TittleLabel" type="Label" parent="HBoxContainer/Body/TopBar/TitleBar"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 25.0
+offset_right = 174.0
+offset_bottom = 39.0
+theme = SubResource("6")
+text = "Modern UI Example Godot"
+
+[node name="systemButtons" type="HBoxContainer" parent="HBoxContainer/Body/TopBar"]
+layout_mode = 2
+
+[node name="min_btn" parent="HBoxContainer/Body/TopBar/systemButtons" instance=ExtResource("4")]
+layout_mode = 2
+types = 2
+icon = ExtResource("11")
+col = Color(0.0745098, 0.0352941, 0.239216, 1)
+colentered = Color(0.613281, 0, 0.398438, 1)
+
+[node name="max_btn" parent="HBoxContainer/Body/TopBar/systemButtons" instance=ExtResource("4")]
+layout_mode = 2
+types = 1
+icon = ExtResource("10")
+col = Color(0.0745098, 0.0352941, 0.239216, 1)
+colentered = Color(0.613281, 0, 0.398438, 1)
+
+[node name="close_btn" parent="HBoxContainer/Body/TopBar/systemButtons" instance=ExtResource("4")]
+layout_mode = 2
+col = Color(0.0745098, 0.0352941, 0.239216, 1)
+
+[node name="BodyContent" type="Control" parent="HBoxContainer/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HomePage" type="Control" parent="HBoxContainer/Body/BodyContent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/HomePage"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -139.5
+offset_top = -79.0
+offset_right = 140.5
+offset_bottom = 91.0
+theme_override_styles/panel = SubResource("7")
+
+[node name="Label" type="Label" parent="HBoxContainer/Body/BodyContent/HomePage/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource("12")
+text = "Home"
+
+[node name="SearchBar" type="Panel" parent="HBoxContainer/Body/BodyContent/HomePage/Panel"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 1.399
+offset_right = 140.0
+offset_bottom = 46.399
+theme_override_styles/panel = SubResource("8")
+
+[node name="Label" type="Label" parent="HBoxContainer/Body/BodyContent/HomePage/Panel/SearchBar"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
+theme_override_fonts/font = SubResource("9")
+text = "Search..."
+
+[node name="Learn" type="Control" parent="HBoxContainer/Body/BodyContent"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/Learn"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 9.0
+offset_right = -29.0
+offset_bottom = -420.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel5" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel6" type="Panel" parent="HBoxContainer/Body/BodyContent/Learn/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Addons" type="Control" parent="HBoxContainer/Body/BodyContent"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.91624
+offset_top = 2.8955
+offset_right = -2.91626
+offset_bottom = 2.89551
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/Addons"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 9.0
+offset_right = -29.0
+offset_bottom = -420.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel5" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel6" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/Addons"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 140.0
+offset_right = -8.0
+offset_bottom = -289.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/Addons"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.403
+offset_top = 273.966
+offset_right = -6.59698
+offset_bottom = -155.034
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/Addons/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="SetingsPage" type="Control" parent="HBoxContainer/Body/BodyContent"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.91624
+offset_top = 2.8955
+offset_right = -2.91626
+offset_bottom = 2.89551
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/SetingsPage"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 9.0
+offset_right = -29.0
+offset_bottom = -420.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/SetingsPage"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 140.0
+offset_right = -8.0
+offset_bottom = -289.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/SetingsPage"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.403
+offset_top = 273.966
+offset_right = -6.59698
+offset_bottom = -155.034
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel5" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel6" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/Body/BodyContent/SetingsPage"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.403
+offset_top = 400.0
+offset_right = -5.59698
+offset_bottom = -29.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel2" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel3" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel4" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel5" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="Panel6" type="Panel" parent="HBoxContainer/Body/BodyContent/SetingsPage/HBoxContainer4"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("10")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x5phq")
+}
+
+[connection signal="gui_input" from="HBoxContainer/SideBar/VBoxContainer/top_container/ToggleButton" to="HBoxContainer/SideBar/VBoxContainer/top_container/ToggleButton" method="_on_ToggleButton_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/Body/TopBar/TitleBar" to="HBoxContainer/Body/TopBar/TitleBar" method="_on_TitleBar_gui_input"]

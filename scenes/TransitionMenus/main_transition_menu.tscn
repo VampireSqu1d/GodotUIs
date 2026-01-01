@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=3 uid="uid://kai6k6pgasgg"]
+
+[ext_resource type="Script" uid="uid://b3kp7w0iajef4" path="res://scenes/TransitionMenus/main_transition_menu.gd" id="1_6d3o1"]
+[ext_resource type="FontFile" uid="uid://cmk12oqe0atv6" path="res://resources/Lato-Thin.ttf" id="1_du2ej"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_41t7o"]
+draw_center = false
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7jlj"]
+draw_center = false
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38qc6"]
+draw_center = false
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w6iy"]
+draw_center = false
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 9
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnar5"]
+bg_color = Color(0.580392, 0.6, 0.827451, 0.729412)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.443137, 0.8, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 12
+shadow_color = Color(0.443137, 0.8, 0.8, 0.517647)
+shadow_size = 12
+
+[sub_resource type="Theme" id="Theme_x7en7"]
+default_font = ExtResource("1_du2ej")
+default_font_size = 36
+Button/styles/focus = SubResource("StyleBoxFlat_41t7o")
+Button/styles/hover = SubResource("StyleBoxFlat_k7jlj")
+Button/styles/normal = SubResource("StyleBoxFlat_38qc6")
+Button/styles/pressed = SubResource("StyleBoxFlat_8w6iy")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+Panel/styles/panel = SubResource("StyleBoxFlat_pnar5")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfkt1"]
+bg_color = Color(0.6, 0.698039, 0.6, 1)
+
+[node name="MainTransitionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_x7en7")
+script = ExtResource("1_6d3o1")
+menu_transition_duration = 0.6
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0588235, 0.0588235, 0.0588235, 0.839216)
+
+[node name="Menu1" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Menu1"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu1/Panel"]
+layout_mode = 2
+offset_right = 980.0
+offset_bottom = 560.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu1/Panel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Button" type="Button" parent="Menu1/Panel/CenterContainer/VBoxContainer"]
+self_modulate = Color(0.317647, 0.145098, 0.72549, 1)
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="Button2" type="Button" parent="Menu1/Panel/CenterContainer/VBoxContainer"]
+self_modulate = Color(0.74902, 0.215686, 0.231373, 1)
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="OptionsButtonMenu1" type="Button" parent="Menu1/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="Button4" type="Button" parent="Menu1/Panel/CenterContainer/VBoxContainer"]
+self_modulate = Color(1, 0.266667, 0.133333, 1)
+layout_mode = 2
+text = "QUIT"
+
+[node name="Menu2" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1020.0
+offset_right = 1020.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Menu2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hfkt1")
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu2/Panel"]
+layout_mode = 2
+offset_right = 980.0
+offset_bottom = 560.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu2/Panel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Button" type="Button" parent="Menu2/Panel/CenterContainer/VBoxContainer"]
+modulate = Color(0.352941, 0.443137, 1, 1)
+layout_mode = 2
+text = "OPTION 1"
+
+[node name="Button2" type="Button" parent="Menu2/Panel/CenterContainer/VBoxContainer"]
+modulate = Color(1, 0.945098, 0.215686, 1)
+layout_mode = 2
+text = "RESOLUTION"
+
+[node name="Button3" type="Button" parent="Menu2/Panel/CenterContainer/VBoxContainer"]
+modulate = Color(1, 0.172549, 0.658824, 1)
+layout_mode = 2
+text = "VIDEO SETTINGS"
+
+[node name="BackButtonMenu2" type="Button" parent="Menu2/Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="pressed" from="Menu1/Panel/CenterContainer/VBoxContainer/OptionsButtonMenu1" to="." method="_on_options_button_menu_1_pressed"]
+[connection signal="pressed" from="Menu1/Panel/CenterContainer/VBoxContainer/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Menu2/Panel/CenterContainer/VBoxContainer/BackButtonMenu2" to="." method="_on_back_button_menu_2_pressed"]

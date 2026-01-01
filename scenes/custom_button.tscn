@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmwcbw1ftak4h"]
+
+[ext_resource type="Script" uid="uid://c22sno51x3aqw" path="res://scripts/custom_button.gd" id="1_ql6db"]
+
+[node name="CustomButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ql6db")
+top_border_line = Color(0.243137, 1, 0.941176, 1)
+bottom_border_line = Color(0.368627, 0.282353, 1, 1)
+left_border_line = Color(1, 0.176471, 1, 1)
+right_border_line = Color(1, 1, 0.203922, 1)
+enable_antialiasing = true
+start_pos = Vector2(100, 0)

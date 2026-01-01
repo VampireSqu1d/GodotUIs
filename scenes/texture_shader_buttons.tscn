@@ -1,0 +1,337 @@
+[gd_scene load_steps=23 format=3 uid="uid://b1dhsg6jusn8b"]
+
+[ext_resource type="PackedScene" uid="uid://dnhk88kcnm5rq" path="res://scenes/stars_texture_button.tscn" id="1_b4yi6"]
+[ext_resource type="PackedScene" uid="uid://o0ljavlxli7f" path="res://scenes/red_circles_button.tscn" id="2_u4idg"]
+
+[sub_resource type="Shader" id="Shader_b4yi6"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+//Controls movement direction
+uniform float movementLeft: hint_range(0.0, 2.0, 0.1) = 0.1;
+uniform float movementUp: hint_range(0.0, 2.0, 0.1) = 0.1;
+//Main star shine adjustments
+uniform float starFrequency: hint_range(0.0, 1.0, 0.01) = 0.1;
+uniform float sizeStar: hint_range(10.0, 200.0, 10.0) = 100.0;
+uniform float brightness: hint_range(1.0, 5.0, 1.0) = 3.0;
+uniform float shineFrequency: hint_range(1.0, 20.0, 1.0) = 8.0;
+uniform float starTransparency: hint_range(0.0, 1.0, 0.01) = 1.0;
+uniform int starIterations: hint_range(1, 10, 1) = 3;
+//Background star adjustments
+uniform float backgroundStarFrequency: hint_range(0.950, 1.0, 0.001) = 0.996;
+uniform float backgroundStarShineFrequency: hint_range(0.0, 5.0, 1.0) = 1.0;
+//Gradient for regular stars
+uniform sampler2D gradientA;
+//Gradient for background stars
+uniform sampler2D gradientB;
+//Background color
+uniform vec4 backgroundColor: source_color = vec4(0.05, 0.04, 0.20, 1.0);
+uniform float backgroundtransparency: hint_range(0.0, 1.0, 0.01) = 1.0;
+//Seeding for different noise generation
+uniform float seed: hint_range(0.0, 100.0, 1.0) = 0.0;
+
+float rand(vec2 st) {
+	return fract(sin(dot(st.xy, vec2(seed+12.9898,78.233))) * 43758.5453123);
+	}
+
+float remap(float prob, float starValue) {
+	return (starValue - prob)/(1.0-prob);
+	} //return (starValue - prob)/(1.0-prob)
+
+void fragment() {
+	float prob = 1.0 - starFrequency;
+	float travelx = TIME*movementLeft;
+	float travely = TIME*movementUp;
+	float color = 0.0;
+	COLOR = vec4(backgroundColor.rgb, backgroundtransparency);
+
+	for(int i = 1; i < 1 + starIterations; i++) {
+		float size = sizeStar/float(i);
+		vec2 pos = vec2(floor((1.0 / size * FRAGCOORD.x)+travelx), floor((1.0 / size * FRAGCOORD.y)+travely));
+		float starValue = rand(pos);
+		
+		if (starValue > prob)
+		{
+			vec2 center = size * pos + vec2(size, size) * 0.5;
+			float t = 0.9 + 0.2 * sin(TIME * shineFrequency + (starValue - prob) / (1.0 - prob) * 45.0);
+			vec2 modifiedCoords = vec2(FRAGCOORD.x + travelx*size, FRAGCOORD.y + travely*size);
+			color = 1.0 - distance(modifiedCoords, center) / (0.5 * size);
+			color = t*t*brightness/float(i) / (clamp(distance(modifiedCoords.y, center.y), 0.5, size/2.0-1.0)) / (clamp(distance(modifiedCoords.x, center.x), 0.5, size/2.0-1.0));
+			vec4 colormapA = texture(gradientA, vec2(remap(prob, starValue)));
+			COLOR.rgb += colormapA.rgb * color * starTransparency;
+		}
+	}
+
+	if (rand(SCREEN_UV.xy / 20.0) > backgroundStarFrequency)
+		{
+			float r = rand(SCREEN_UV.xy);
+			color = r * (0.85 * sin(TIME * backgroundStarShineFrequency * (r * 5.0) + 720.0 * r) + 0.95);
+			vec4 colormapB = texture(gradientB, vec2(r));
+			COLOR.rgb += color * colormapB.rgb * starTransparency;
+		}
+	}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4idg"]
+resource_local_to_scene = true
+shader = SubResource("Shader_b4yi6")
+shader_parameter/movementLeft = 0.1
+shader_parameter/movementUp = 0.1
+shader_parameter/starFrequency = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightness = 3.0
+shader_parameter/shineFrequency = 8.0
+shader_parameter/starTransparency = 1.0
+shader_parameter/starIterations = 3
+shader_parameter/backgroundStarFrequency = 0.996
+shader_parameter/backgroundStarShineFrequency = 1.0
+shader_parameter/backgroundColor = Color(0.0509804, 0.0392157, 0.2, 1)
+shader_parameter/backgroundtransparency = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Gradient" id="Gradient_0x2v6"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j1mbi"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_0x2v6")
+width = 200
+height = 32
+
+[sub_resource type="Shader" id="Shader_u4idg"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D gradient;
+uniform vec4 circle_color : source_color = vec4(1.0,1.0,1.0,1.0);
+uniform float circle_multiplier = 10.0;
+uniform float speed = 1.0;
+uniform vec2 direction = vec2(1.0,1.0);
+uniform mat2 rotation = mat2(vec2(1.0,1.0), vec2(-1.0,1.0));
+
+void fragment() {
+	vec2 direction_norm = normalize(direction);
+	vec2 uv = UV;
+	vec2 uv_deriv = fwidthFine(uv);
+	float aspect_ratio = uv_deriv.y / uv_deriv.x;
+	uv.x *= aspect_ratio;
+	vec2 tiled_UV = rotation * (uv * circle_multiplier - direction_norm * TIME * speed);
+	vec2 local_uv = fract(tiled_UV);
+	vec2 center = vec2(0.5);
+	float dist = distance(local_uv, center);
+	float radius = texture(gradient, UV).r;
+	float circle_alpha = 1.0 - step(radius, dist);
+	COLOR = circle_color * vec4(circle_alpha);
+}"
+
+[sub_resource type="Gradient" id="Gradient_qi4cp"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0hcv3"]
+gradient = SubResource("Gradient_qi4cp")
+width = 200
+height = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xg6a4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_u4idg")
+shader_parameter/gradient = SubResource("GradientTexture2D_0hcv3")
+shader_parameter/circle_color = Color(1, 0.286275, 0.258824, 1)
+shader_parameter/circle_multiplier = 10.0
+shader_parameter/speed = 1.0
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_wr3wc"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b4yi6"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_wr3wc")
+width = 200
+height = 32
+
+[sub_resource type="Shader" id="Shader_j1mbi"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform sampler2D gradient;
+uniform vec4 circle_color : source_color = vec4(1.0,1.0,1.0,1.0);
+uniform float circle_multiplier = 10.0;
+uniform float speed = 1.0;
+uniform vec2 direction = vec2(1.0,1.0);
+uniform mat2 rotation = mat2(vec2(1.0,1.0), vec2(-1.0,1.0));
+
+void fragment() {
+	vec2 direction_norm = normalize(direction);
+	vec2 uv = UV;
+	vec2 uv_deriv = fwidthFine(uv);
+	float aspect_ratio = uv_deriv.y / uv_deriv.x;
+	uv.x *= aspect_ratio;
+	vec2 tiled_UV = rotation * (uv * circle_multiplier - direction_norm * TIME * speed);
+	vec2 local_uv = fract(tiled_UV);
+	vec2 center = vec2(0.5);
+	float dist = distance(local_uv, center);
+	float radius = texture(gradient, UV).r;
+	float circle_alpha = 1.0 - step(radius, dist);
+	COLOR = circle_color * vec4(circle_alpha);
+}"
+
+[sub_resource type="Gradient" id="Gradient_j1mbi"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yjruw"]
+gradient = SubResource("Gradient_j1mbi")
+width = 200
+height = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yka6w"]
+resource_local_to_scene = true
+shader = SubResource("Shader_j1mbi")
+shader_parameter/gradient = SubResource("GradientTexture2D_yjruw")
+shader_parameter/circle_color = Color(1, 0.180392, 0.866667, 1)
+shader_parameter/circle_multiplier = 10.0
+shader_parameter/speed = 1.0
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_83ktv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k71lp"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_83ktv")
+width = 200
+height = 32
+
+[sub_resource type="Shader" id="Shader_yjruw"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+//Controls movement direction
+uniform float movementLeft: hint_range(0.0, 2.0, 0.1) = 0.1;
+uniform float movementUp: hint_range(0.0, 2.0, 0.1) = 0.1;
+//Main star shine adjustments
+uniform float starFrequency: hint_range(0.0, 1.0, 0.01) = 0.1;
+uniform float sizeStar: hint_range(10.0, 200.0, 10.0) = 100.0;
+uniform float brightness: hint_range(1.0, 5.0, 1.0) = 3.0;
+uniform float shineFrequency: hint_range(1.0, 20.0, 1.0) = 8.0;
+uniform float starTransparency: hint_range(0.0, 1.0, 0.01) = 1.0;
+uniform int starIterations: hint_range(1, 10, 1) = 3;
+//Background star adjustments
+uniform float backgroundStarFrequency: hint_range(0.950, 1.0, 0.001) = 0.996;
+uniform float backgroundStarShineFrequency: hint_range(0.0, 5.0, 1.0) = 1.0;
+//Gradient for regular stars
+uniform sampler2D gradientA;
+//Gradient for background stars
+uniform sampler2D gradientB;
+//Background color
+uniform vec4 backgroundColor: source_color = vec4(0.05, 0.04, 0.20, 1.0);
+uniform float backgroundtransparency: hint_range(0.0, 1.0, 0.01) = 1.0;
+//Seeding for different noise generation
+uniform float seed: hint_range(0.0, 100.0, 1.0) = 0.0;
+
+float rand(vec2 st) {
+	return fract(sin(dot(st.xy, vec2(seed+12.9898,78.233))) * 43758.5453123);
+	}
+
+float remap(float prob, float starValue) {
+	return (starValue - prob)/(1.0-prob);
+	} //return (starValue - prob)/(1.0-prob)
+
+void fragment() {
+	float prob = 1.0 - starFrequency;
+	float travelx = TIME*movementLeft;
+	float travely = TIME*movementUp;
+	float color = 0.0;
+	COLOR = vec4(backgroundColor.rgb, backgroundtransparency);
+
+	for(int i = 1; i < 1 + starIterations; i++) {
+		float size = sizeStar/float(i);
+		vec2 pos = vec2(floor((1.0 / size * FRAGCOORD.x)+travelx), floor((1.0 / size * FRAGCOORD.y)+travely));
+		float starValue = rand(pos);
+		
+		if (starValue > prob)
+		{
+			vec2 center = size * pos + vec2(size, size) * 0.5;
+			float t = 0.9 + 0.2 * sin(TIME * shineFrequency + (starValue - prob) / (1.0 - prob) * 45.0);
+			vec2 modifiedCoords = vec2(FRAGCOORD.x + travelx*size, FRAGCOORD.y + travely*size);
+			color = 1.0 - distance(modifiedCoords, center) / (0.5 * size);
+			color = t*t*brightness/float(i) / (clamp(distance(modifiedCoords.y, center.y), 0.5, size/2.0-1.0)) / (clamp(distance(modifiedCoords.x, center.x), 0.5, size/2.0-1.0));
+			vec4 colormapA = texture(gradientA, vec2(remap(prob, starValue)));
+			COLOR.rgb += colormapA.rgb * color * starTransparency;
+		}
+	}
+
+	if (rand(SCREEN_UV.xy / 20.0) > backgroundStarFrequency)
+		{
+			float r = rand(SCREEN_UV.xy);
+			color = r * (0.85 * sin(TIME * backgroundStarShineFrequency * (r * 5.0) + 720.0 * r) + 0.95);
+			vec4 colormapB = texture(gradientB, vec2(r));
+			COLOR.rgb += color * colormapB.rgb * starTransparency;
+		}
+	}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83ktv"]
+resource_local_to_scene = true
+shader = SubResource("Shader_yjruw")
+shader_parameter/movementLeft = 0.1
+shader_parameter/movementUp = 0.1
+shader_parameter/starFrequency = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightness = 3.0
+shader_parameter/shineFrequency = 8.0
+shader_parameter/starTransparency = 1.0
+shader_parameter/starIterations = 3
+shader_parameter/backgroundStarFrequency = 0.996
+shader_parameter/backgroundStarShineFrequency = 1.0
+shader_parameter/backgroundColor = Color(0.983107, 0.741036, 0.172001, 1)
+shader_parameter/backgroundtransparency = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Gradient" id="Gradient_k71lp"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yxns0"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_k71lp")
+width = 200
+height = 32
+
+[node name="TextureShaderButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -34.0
+offset_right = 100.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 13
+
+[node name="TextureButton" parent="VBoxContainer" instance=ExtResource("1_b4yi6")]
+material = SubResource("ShaderMaterial_u4idg")
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_j1mbi")
+
+[node name="TextureButton2" parent="VBoxContainer" instance=ExtResource("2_u4idg")]
+material = SubResource("ShaderMaterial_xg6a4")
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_b4yi6")
+
+[node name="TextureButton3" parent="VBoxContainer" instance=ExtResource("2_u4idg")]
+material = SubResource("ShaderMaterial_yka6w")
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_k71lp")
+normal_bg_color = Color(1, 0.180392, 0.866667, 1)
+
+[node name="TextureButton4" parent="VBoxContainer" instance=ExtResource("1_b4yi6")]
+material = SubResource("ShaderMaterial_83ktv")
+layout_mode = 2
+texture_normal = SubResource("GradientTexture2D_yxns0")
+normal_bg_color = Color(0.983107, 0.741036, 0.172001, 1)

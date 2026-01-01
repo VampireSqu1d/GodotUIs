@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://o0ljavlxli7f"]
+
+[ext_resource type="Shader" uid="uid://pbxbc082sn3u" path="res://resources/Shaders/red_circles.gdshader" id="1_n4xdk"]
+
+[sub_resource type="Gradient" id="Gradient_j1mbi"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yjruw"]
+gradient = SubResource("Gradient_j1mbi")
+width = 200
+height = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_26bqp"]
+resource_local_to_scene = true
+shader = ExtResource("1_n4xdk")
+shader_parameter/gradient = SubResource("GradientTexture2D_yjruw")
+shader_parameter/circle_color = Color(1, 0.286275, 0.258824, 1)
+shader_parameter/circle_multiplier = 10.0
+shader_parameter/speed = 1.0
+shader_parameter/direction = Vector2(1, 1)
+shader_parameter/rotation = Transform2D(1, -1, 1, 1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_83ktv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n4xdk"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_83ktv")
+width = 200
+height = 32
+
+[sub_resource type="GDScript" id="GDScript_n4xdk"]
+script/source = "@tool
+extends TextureButton
+
+@export var ease_type: = Tween.EASE_OUT
+@export var trans_type: = Tween.TRANS_CUBIC
+@export var transition_time: float = 0.4
+@export var normal_bg_color: Color = Color(\"ff4942\")
+	#set(value):
+		#value = normal_bg_color
+		#material.set(\"shader_parameter/circle_color\", normal_bg_color)
+@export var hover_bg_color: Color = Color(\"603ab7\")
+var tween: Tween
+
+func _ready() -> void:
+	material.set(\"shader_parameter/circle_color\", normal_bg_color)
+
+
+func _on_mouse_entered() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_ease(ease_type).set_trans(trans_type).set_parallel()
+	tween.tween_property(self, \"material:shader_parameter/circle_color\", hover_bg_color, transition_time)
+
+
+func _on_mouse_exited() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_ease(ease_type).set_trans(trans_type).set_parallel()
+	tween.tween_property(self, \"material:shader_parameter/circle_color\", normal_bg_color, transition_time)
+"
+
+[node name="TextureButton" type="TextureButton"]
+material = SubResource("ShaderMaterial_26bqp")
+offset_right = 200.0
+offset_bottom = 32.0
+texture_normal = SubResource("GradientTexture2D_n4xdk")
+script = SubResource("GDScript_n4xdk")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Play"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

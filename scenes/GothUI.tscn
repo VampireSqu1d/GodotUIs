@@ -1,0 +1,245 @@
+[gd_scene load_steps=12 format=3 uid="uid://cipstul3rnp4s"]
+
+[ext_resource type="FontFile" uid="uid://dokff1a8k6oqo" path="res://fonts/Slimespooky-8MKGA.otf" id="1_h78sb"]
+[ext_resource type="Texture2D" uid="uid://bv67jcp0lv1ag" path="res://assets/Goth UI/background pattern_01.png" id="1_ibvt4"]
+[ext_resource type="Texture2D" uid="uid://dq7nsmi4hh18y" path="res://assets/Goth UI/BORDERS/border_01.png" id="2_jpcft"]
+[ext_resource type="Script" uid="uid://bftqjoao30bbo" path="res://scripts/goth_ui.gd" id="2_txtlx"]
+[ext_resource type="Texture2D" uid="uid://c1k7c582rjrpi" path="res://assets/Goth UI/BUTTONS/button 05_off.png" id="3_h78sb"]
+[ext_resource type="Texture2D" uid="uid://c0ufed4wklmwu" path="res://assets/Goth UI/BORDERS/border_02.png" id="4_0r42e"]
+[ext_resource type="Texture2D" uid="uid://bi1cgbum47t8r" path="res://assets/Goth UI/BUTTONS/button 05_press.png" id="4_txtlx"]
+[ext_resource type="Texture2D" uid="uid://bufapwoiv2ktn" path="res://assets/Goth UI/BUTTONS/button 05_hover.png" id="5_0r42e"]
+[ext_resource type="Texture2D" uid="uid://canac3qghuo8l" path="res://assets/Goth UI/BUTTONS/arrow select a.png" id="9_0r42e"]
+
+[sub_resource type="Theme" id="Theme_npsw7"]
+default_font = ExtResource("1_h78sb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4m80l"]
+font_size = 28
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("VBoxContainer/LoadButton")
+focus_next = NodePath("VBoxContainer/LoadButton")
+focus_previous = NodePath("VBoxContainer/QuitButton")
+theme = SubResource("Theme_npsw7")
+script = ExtResource("2_txtlx")
+anim_duration = 0.18
+anim_ease = 1
+anim_trans = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="TextureRect4" type="TextureRect" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_ibvt4")
+stretch_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_ibvt4")
+stretch_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_ibvt4")
+stretch_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_ibvt4")
+stretch_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("1_ibvt4")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1020.0
+offset_bottom = 600.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("2_jpcft")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("4_0r42e")
+expand_mode = 5
+
+[node name="SelectArrows" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -199.0
+offset_top = -150.0
+offset_right = 199.0
+offset_bottom = -83.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_0r42e")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.5
+offset_top = -150.0
+offset_right = 128.5
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_h78sb")
+texture_pressed = ExtResource("4_txtlx")
+texture_hover = ExtResource("5_0r42e")
+texture_focused = ExtResource("5_0r42e")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.0
+offset_top = -17.5
+offset_right = 29.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+label_settings = SubResource("LabelSettings_4m80l")
+
+[node name="LoadButton" type="TextureButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_h78sb")
+texture_pressed = ExtResource("4_txtlx")
+texture_hover = ExtResource("5_0r42e")
+texture_focused = ExtResource("5_0r42e")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/LoadButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -17.5
+offset_right = 31.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load"
+label_settings = SubResource("LabelSettings_4m80l")
+
+[node name="OptionsButton" type="TextureButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_h78sb")
+texture_pressed = ExtResource("4_txtlx")
+texture_hover = ExtResource("5_0r42e")
+texture_focused = ExtResource("5_0r42e")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/OptionsButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -17.5
+offset_right = 28.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+label_settings = SubResource("LabelSettings_4m80l")
+
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("3_h78sb")
+texture_pressed = ExtResource("4_txtlx")
+texture_hover = ExtResource("5_0r42e")
+texture_focused = ExtResource("5_0r42e")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -17.5
+offset_right = 28.0
+offset_bottom = 17.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_4m80l")
+
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_texture_button_3_pressed"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://7l45xcgby1vv"]
+
+[ext_resource type="Script" uid="uid://bp54ajm2wtfgn" path="res://scripts/StackedOutlinesLabel.gd" id="1_2uqk7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a3yin"]
+font_size = 64
+
+[node name="Label" type="Label"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -11.5
+offset_right = 49.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Preview Text"
+label_settings = SubResource("LabelSettings_a3yin")
+script = ExtResource("1_2uqk7")
+text_color = Color(0.105882, 1, 1, 1)
+outline1_color = Color(0.976471, 0.376471, 0.333333, 1)
+outoline1_size = 6
+outline2_color = Color(0.980392, 0.717647, 0.294118, 1)
+outline3_color = Color(0.254902, 0.666667, 0.980392, 1)

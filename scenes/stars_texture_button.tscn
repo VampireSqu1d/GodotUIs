@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://dnhk88kcnm5rq"]
+
+[ext_resource type="Shader" uid="uid://bebw2cg6k7awi" path="res://resources/Shaders/stars.gdshader" id="1_cdslb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwb2s"]
+resource_local_to_scene = true
+shader = ExtResource("1_cdslb")
+shader_parameter/movementLeft = 0.1
+shader_parameter/movementUp = 0.1
+shader_parameter/starFrequency = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightness = 3.0
+shader_parameter/shineFrequency = 8.0
+shader_parameter/starTransparency = 1.0
+shader_parameter/starIterations = 3
+shader_parameter/backgroundStarFrequency = 0.996
+shader_parameter/backgroundStarShineFrequency = 1.0
+shader_parameter/backgroundColor = Color(0.0509804, 0.0392157, 0.2, 1)
+shader_parameter/backgroundtransparency = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Gradient" id="Gradient_k71lp"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wsvdy"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_k71lp")
+width = 200
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_hwb2s"]
+colors = PackedColorArray(0.878431, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0x2v6"]
+gradient = SubResource("Gradient_hwb2s")
+width = 200
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_cdslb"]
+colors = PackedColorArray(0, 0, 0, 0.352941, 1, 1, 1, 0.352941)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hwb2s"]
+gradient = SubResource("Gradient_cdslb")
+width = 200
+height = 32
+
+[sub_resource type="GDScript" id="GDScript_0x2v6"]
+script/source = "@tool
+extends TextureButton
+
+@export var text: String = \"Play\":
+	set(value):
+		text = value
+		$Label.text = value
+@export var ease_type: = Tween.EASE_OUT
+@export var trans_type: = Tween.TRANS_CUBIC
+@export var transition_time: float = 0.4
+@export var normal_bg_color: Color = Color(\"0d0a33\")#:
+	#set(value):
+		#value = normal_bg_color
+		#material.set(\"shader_parameter/backgroundColor\", normal_bg_color)
+@export var hover_bg_color: Color = Color(\"603ab7\")
+var tween: Tween
+
+
+func _ready() -> void:
+	material.set(\"shader_parameter/backgroundColor\", normal_bg_color)
+
+func _on_pressed() -> void:
+	print(\"button pressed\")
+
+
+func _on_mouse_entered() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_ease(ease_type).set_trans(trans_type).set_parallel()
+	tween.tween_property(self, \"material:shader_parameter/backgroundColor\", hover_bg_color, transition_time)
+
+
+func _on_mouse_exited() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_ease(ease_type).set_trans(trans_type).set_parallel()
+	tween.tween_property(self, \"material:shader_parameter/backgroundColor\", normal_bg_color, transition_time)
+"
+
+[node name="TextureButton" type="TextureButton"]
+material = SubResource("ShaderMaterial_hwb2s")
+offset_right = 200.0
+offset_bottom = 32.0
+texture_normal = SubResource("GradientTexture2D_wsvdy")
+texture_pressed = SubResource("GradientTexture2D_0x2v6")
+texture_hover = SubResource("GradientTexture2D_hwb2s")
+script = SubResource("GDScript_0x2v6")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Play"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

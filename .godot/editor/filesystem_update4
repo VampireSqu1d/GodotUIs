@@ -1,0 +1,14 @@
+res://default_env.tres
+res://scenes/Main.tscn
+res://resources/Shaders/stars.gdshader
+res://resources/Shaders/red_circles.gdshader
+res://scenes/GothUI.tscn
+res://scenes/label.tscn
+res://scenes/disco/disco_main.tscn
+res://scenes/red_circles_button.tscn
+res://scenes/transition_state_button.tscn
+res://scenes/TransitionMenus/main_transition_menu.tscn
+res://resources/light_pink_shadow.tres
+res://scenes/light_pink_shadow.tscn
+res://scenes/texture_shader_buttons.tscn
+res://scenes/transition_state_butons.tscn

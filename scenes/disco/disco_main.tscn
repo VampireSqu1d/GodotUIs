@@ -1,0 +1,155 @@
+[gd_scene load_steps=10 format=3 uid="uid://q0jnnedtkq22"]
+
+[ext_resource type="Theme" uid="uid://b8i04uknxpibm" path="res://disco.theme" id="1_rojsa"]
+[ext_resource type="Script" uid="uid://qsjm2ld8qvlm" path="res://scenes/disco/disco_main.gd" id="2_jjwbi"]
+[ext_resource type="Texture2D" uid="uid://k1x4podujr0a" path="res://icons/rb_2151002460.png" id="3_evlsf"]
+[ext_resource type="Texture2D" uid="uid://do3yqbowt5jt" path="res://resources/TexturesCom_NorwayHighlandsB_1K_hdri_sphere_tone.jpg" id="3_o5i8o"]
+[ext_resource type="Shader" uid="uid://brkxkpjbyhr53" path="res://scenes/disco/film_grain.gdshader" id="3_yqd3n"]
+[ext_resource type="Shader" uid="uid://x2riwiu4kgti" path="res://resources/Shaders/grain_film.gdshader" id="4_3x8bh"]
+[ext_resource type="AudioStream" uid="uid://b427sebs5q052" path="res://resources/camera-shutter-199580.mp3" id="5_qyboj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_af1vl"]
+shader = ExtResource("4_3x8bh")
+shader_parameter/grain_amount = 0.05
+shader_parameter/grain_size = 3.62
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ibq68"]
+shader = ExtResource("3_yqd3n")
+shader_parameter/grain_amount = 0.14
+shader_parameter/grain_size = 0.75
+
+[node name="DiscoMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rojsa")
+script = ExtResource("2_jjwbi")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_o5i8o")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
+z_index = -2
+material = SubResource("ShaderMaterial_af1vl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_o5i8o")
+
+[node name="LeftStrip" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 373.0
+offset_top = 1.52588e-05
+offset_right = 974.0
+offset_bottom = 372.0
+rotation = 1.5708
+texture = ExtResource("3_evlsf")
+expand_mode = 1
+
+[node name="LeftStrip2" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 373.0
+offset_top = 600.0
+offset_right = 974.0
+offset_bottom = 972.0
+rotation = 1.5708
+texture = ExtResource("3_evlsf")
+expand_mode = 1
+
+[node name="RightStrip" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 413.0
+offset_top = -598.0
+offset_right = 1014.0
+offset_bottom = -226.0
+rotation = 1.5708
+texture = ExtResource("3_evlsf")
+expand_mode = 1
+
+[node name="RightStrip2" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 413.0
+offset_top = 2.00003
+offset_right = 1014.0
+offset_bottom = 374.0
+rotation = 1.5708
+texture = ExtResource("3_evlsf")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 373.0
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+material = SubResource("ShaderMaterial_ibq68")
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="Button2" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "NEW GAME"
+
+[node name="Button3" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOAD GAME"
+
+[node name="Button4" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "COLLAGE"
+
+[node name="Button5" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+
+[node name="Button6" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_qyboj")
+
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/Button2" to="." method="_on_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/Button3" to="." method="_on_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/Button4" to="." method="_on_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/Button5" to="." method="_on_button_focus_entered"]
+[connection signal="focus_entered" from="MarginContainer/PanelContainer/VBoxContainer/Button6" to="." method="_on_button_focus_entered"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Button6" to="." method="_on_button_6_pressed"]

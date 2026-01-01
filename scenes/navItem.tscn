@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci51ob0au4tdu"]
+
+[ext_resource type="Texture2D" uid="uid://dre4yn6p27byw" path="res://icons/home.svg" id="1"]
+[ext_resource type="Script" uid="uid://b6us5aydu8bc3" path="res://scripts/navItem.gd" id="2"]
+
+[node name="navItem" type="Control" groups=["navItem"]]
+offset_right = 70.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2(70, 40)
+script = ExtResource("2")
+
+[node name="bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.0431373, 0.0156863, 0.164706, 1)
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 70.0
+offset_right = 70.0
+text = "Home"
+valign = 1
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(35, 20)
+texture = ExtResource("1")
+
+[node name="active" type="ColorRect" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -20.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(0.615686, 0, 0.4, 1)
+
+[connection signal="gui_input" from="." to="." method="_on_navItem_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_navItem_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_navItem_mouse_exited"]
