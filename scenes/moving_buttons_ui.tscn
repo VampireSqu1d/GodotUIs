@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://tjq14rf3iw3h"]
+
+[ext_resource type="Script" uid="uid://ufbljxy82c0c" path="res://scripts/moving_buttons_ui.gd" id="1_cfom8"]
+[ext_resource type="Texture2D" uid="uid://bvob2in5aev30" path="res://assets/blue_background.jpeg" id="2_d6ord"]
+[ext_resource type="PackedScene" uid="uid://cj1dgj8qawwqt" path="res://scenes/transition_state_button.tscn" id="2_g56v3"]
+[ext_resource type="PackedScene" uid="uid://dnhk88kcnm5rq" path="res://scenes/stars_texture_button.tscn" id="3_ofkx8"]
+[ext_resource type="Shader" uid="uid://bebw2cg6k7awi" path="res://resources/Shaders/stars.gdshader" id="4_d6ord"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofkx8"]
+resource_local_to_scene = true
+shader = ExtResource("4_d6ord")
+shader_parameter/movementLeft = 0.1
+shader_parameter/movementUp = 0.1
+shader_parameter/starFrequency = 0.1
+shader_parameter/sizeStar = 100.0
+shader_parameter/brightness = 3.0
+shader_parameter/shineFrequency = 8.0
+shader_parameter/starTransparency = 1.0
+shader_parameter/starIterations = 3
+shader_parameter/backgroundStarFrequency = 0.996
+shader_parameter/backgroundStarShineFrequency = 1.0
+shader_parameter/backgroundColor = Color(0.050980393, 0.039215688, 0.2, 1)
+shader_parameter/backgroundtransparency = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="Gradient" id="Gradient_k71lp"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d6ord"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_k71lp")
+width = 200
+height = 32
+
+[node name="MovingButtonsUI" type="Control" unique_id=1436539145 node_paths=PackedStringArray("buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cfom8")
+anim_transition = 10
+anim_ease = 1
+buttons = [NodePath("TransitionStateButton"), NodePath("TransitionStateButton2"), NodePath("TransitionStateButton3"), NodePath("TransitionStateButton4")]
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=865630165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_d6ord")
+
+[node name="TransitionStateButton" parent="." unique_id=853671139 instance=ExtResource("2_g56v3")]
+layout_mode = 1
+offset_left = -608.0
+offset_top = -134.0
+offset_right = -527.0
+offset_bottom = -105.0
+text = "Continue"
+
+[node name="TransitionStateButton2" parent="." unique_id=104718 instance=ExtResource("2_g56v3")]
+layout_mode = 1
+offset_left = -608.0
+offset_top = -85.0
+offset_right = -527.0
+offset_bottom = -56.0
+text = "New Game"
+
+[node name="TransitionStateButton3" parent="." unique_id=1437357582 instance=ExtResource("2_g56v3")]
+layout_mode = 1
+offset_left = -608.0
+offset_top = -49.0
+offset_right = -527.0
+offset_bottom = -20.0
+text = "Options"
+
+[node name="TransitionStateButton4" parent="." unique_id=489717752 instance=ExtResource("2_g56v3")]
+layout_mode = 1
+offset_left = -604.0
+offset_top = -9.0
+offset_right = -523.0
+offset_bottom = 20.0
+text = "Quit"
+
+[node name="ReferencePoint" type="Control" parent="." unique_id=830724630]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -120.0
+offset_top = 140.0
+offset_right = -120.0
+offset_bottom = 140.0
+
+[node name="TextureButton" parent="." unique_id=1994816175 instance=ExtResource("3_ofkx8")]
+material = SubResource("ShaderMaterial_ofkx8")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -16.0
+offset_right = 0.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = SubResource("GradientTexture2D_d6ord")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

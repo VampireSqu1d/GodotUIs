@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://rr7uygpytwpm"]
+[gd_scene format=3 uid="uid://rr7uygpytwpm"]
 
 [ext_resource type="Theme" uid="uid://cah4yvs3p8a6b" path="res://resources/light_pink_shadow.tres" id="1_oy7j1"]
+[ext_resource type="Texture2D" uid="uid://b4qygq61xki02" path="res://assets/pink_background.jpeg" id="2_1rdaf"]
 [ext_resource type="PackedScene" uid="uid://cj1dgj8qawwqt" path="res://scenes/transition_state_button.tscn" id="2_65uff"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1102029358]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +13,16 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_oy7j1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1775386262]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1rdaf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=435134460]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -27,37 +37,38 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
 
-[node name="TransitionStateButton" parent="VBoxContainer" instance=ExtResource("2_65uff")]
+[node name="TransitionStateButton" parent="VBoxContainer" unique_id=997698382 instance=ExtResource("2_65uff")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_oy7j1")
 text = "Play"
 trans_type = 5
 
-[node name="TransitionStateButton2" parent="VBoxContainer" instance=ExtResource("2_65uff")]
+[node name="TransitionStateButton2" parent="VBoxContainer" unique_id=1729575993 instance=ExtResource("2_65uff")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_oy7j1")
 text = "Continue"
 trans_type = 8
 
-[node name="TransitionStateButton3" parent="VBoxContainer" instance=ExtResource("2_65uff")]
+[node name="TransitionStateButton3" parent="VBoxContainer" unique_id=1478989016 instance=ExtResource("2_65uff")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_oy7j1")
 text = "Load Game"
-trans_type = 6
+trans_type = 0
 
-[node name="TransitionStateButton4" parent="VBoxContainer" instance=ExtResource("2_65uff")]
+[node name="TransitionStateButton4" parent="VBoxContainer" unique_id=455603881 instance=ExtResource("2_65uff")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_oy7j1")
 text = "Options"
 trans_type = 2
 
-[node name="TransitionStateButton5" parent="VBoxContainer" instance=ExtResource("2_65uff")]
+[node name="TransitionStateButton5" parent="VBoxContainer" unique_id=2064777184 instance=ExtResource("2_65uff")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("1_oy7j1")
 text = "Quit"
 trans_type = 11
+enabled = false

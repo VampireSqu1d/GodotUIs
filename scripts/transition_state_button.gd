@@ -1,7 +1,14 @@
+class_name TransitionButton
 extends Button
 
+@export_category("Stylebox Transition Animation")
 @export var ease_type: = Tween.EASE_OUT
 @export var trans_type: = Tween.TRANS_CUBIC
+@export var stylebox_animation_dutation: = 0.2
+@export_category("Hover Tilt Animation")
+@export var enabled: bool = true
+@export var angle: float = 5.0
+@export var tilt_animation_duration: float = 0.2
 
 var tween_stylebox:StyleBoxFlat
 var styleboxes:Dictionary = {}
@@ -18,17 +25,23 @@ func _ready() -> void:
 	styleboxes[BaseButton.DRAW_HOVER] = get_theme_stylebox('hover').duplicate()
 	styleboxes[BaseButton.DRAW_PRESSED] = get_theme_stylebox('pressed').duplicate()
 	styleboxes[BaseButton.DRAW_HOVER_PRESSED] = get_theme_stylebox('pressed').duplicate()
+	styleboxes[5] = get_theme_stylebox('focus').duplicate() # We get this one with an integer instead of a Enum cause theres no focus enum entry
 	# Override all the other styleboxes with our tween stylebox
 	add_theme_stylebox_override('normal', tween_stylebox)
 	add_theme_stylebox_override('hover', tween_stylebox)
 	add_theme_stylebox_override('pressed', tween_stylebox)
+	add_theme_stylebox_override('focus', tween_stylebox)
+	focus_entered.connect(_on_focus_entered)
+	focus_exited.connect(_on_focus_exited)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if get_draw_mode() != current_state:
+		tilt_anim()
+
 		# If the draw mode changed
 		current_state = get_draw_mode()
+		print("draw mode:" + str(current_state))
 		# Kill the running tween
 		if tween and tween.is_running():
 			tween.kill()
@@ -37,12 +50,45 @@ func _process(_delta: float) -> void:
 		# That tweens some properties of our tween stylebox to the target stylebox
 		# depending on the current state
 		var target = styleboxes[current_state] as StyleBoxFlat
-		tween.tween_property(tween_stylebox, "bg_color", target.bg_color, 0.2)
-		tween.tween_property(tween_stylebox, "shadow_size", target.shadow_size, 0.2)
-		tween.tween_property(tween_stylebox, "shadow_color", target.shadow_color, 0.2)
-		tween.tween_property(tween_stylebox, "shadow_offset", target.shadow_offset, 0.2)
-		tween.tween_property(tween_stylebox, "border_color", target.border_color, 0.2)
-		tween.tween_property(tween_stylebox, "corner_radius_top_left", target.corner_radius_top_left, 0.2)
-		tween.tween_property(tween_stylebox, "corner_radius_top_right", target.corner_radius_top_right, 0.2)
-		tween.tween_property(tween_stylebox, "corner_radius_bottom_left", target.corner_radius_bottom_left, 0.2)
-		tween.tween_property(tween_stylebox, "corner_radius_bottom_right", target.corner_radius_bottom_right, 0.2)
+		tween.tween_property(tween_stylebox, "bg_color", target.bg_color, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "shadow_size", target.shadow_size, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "shadow_color", target.shadow_color, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "shadow_offset", target.shadow_offset, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "border_color", target.border_color, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "corner_radius_top_left", target.corner_radius_top_left, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "corner_radius_top_right", target.corner_radius_top_right, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "corner_radius_bottom_left", target.corner_radius_bottom_left, stylebox_animation_dutation)
+		tween.tween_property(tween_stylebox, "corner_radius_bottom_right", target.corner_radius_bottom_right, stylebox_animation_dutation)
+
+var rotation_tween: Tween
+func _on_focus_entered() -> void:
+	#print("focus entered")
+	tilt_anim()
+
+
+func _on_focus_exited() -> void:
+	#print("focus exited")
+	pass
+
+
+func tilt_anim() -> void:
+	if enabled:
+		if rotation_tween and rotation_tween.is_running():
+			rotation_tween.kill()
+			# And create a new one
+		rotation_tween = create_tween().set_ease(ease_type).set_trans(trans_type)
+		# That tweens some properties of our tween stylebox to the target stylebox
+		# depending on the current state
+		rotation_tween.tween_property(self, "rotation_degrees", angle, tilt_animation_duration)
+		rotation_tween.tween_property(self, "rotation_degrees", -angle, tilt_animation_duration * 2.0)
+		rotation_tween.tween_property(self, "rotation_degrees", 0.0, tilt_animation_duration)
+
+
+func _exit_tree() -> void:
+	disconnect("focus_entered", _on_focus_entered)
+	disconnect("focus_exited", _on_focus_exited)
+	
+	if rotation_tween:
+		rotation_tween.kill()
+	if tween:
+		tween.kill()

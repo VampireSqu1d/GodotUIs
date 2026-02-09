@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://t44altvwirt6"]
+
+[ext_resource type="Script" uid="uid://c02qo4cu6qpo" path="res://scripts/moving_elements.gd" id="1_pdaxj"]
+[ext_resource type="PackedScene" uid="uid://cj1dgj8qawwqt" path="res://scenes/transition_state_button.tscn" id="2_3ph18"]
+
+[node name="Control" type="Control" unique_id=949401270]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pdaxj")
+
+[node name="NewGameButton" parent="." unique_id=889588460 instance=ExtResource("2_3ph18")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 14.0
+offset_top = 219.5
+offset_right = 109.0
+offset_bottom = 248.5
+grow_horizontal = 1
+grow_vertical = 1
+focus_neighbor_bottom = NodePath("../ContinueButton")
+focus_next = NodePath("../ContinueButton")
+focus_previous = NodePath("../QuitButton")
+text = "New Game"
+
+[node name="ContinueButton" parent="." unique_id=85726297 instance=ExtResource("2_3ph18")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 14.0
+offset_top = 252.5
+offset_right = 109.0
+offset_bottom = 281.5
+grow_horizontal = 1
+grow_vertical = 1
+focus_neighbor_top = NodePath("../NewGameButton")
+focus_neighbor_bottom = NodePath("../OptionsButton")
+focus_next = NodePath("../OptionsButton")
+focus_previous = NodePath("../NewGameButton")
+text = "Continue
+"
+
+[node name="OptionsButton" parent="." unique_id=2007674953 instance=ExtResource("2_3ph18")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 14.0
+offset_top = 285.5
+offset_right = 109.0
+offset_bottom = 314.5
+grow_horizontal = 1
+grow_vertical = 1
+focus_neighbor_top = NodePath("../ContinueButton")
+focus_neighbor_bottom = NodePath("../SaveButton")
+focus_next = NodePath("../SaveButton")
+focus_previous = NodePath("../ContinueButton")
+text = "Options"
+
+[node name="SaveButton" parent="." unique_id=2132334691 instance=ExtResource("2_3ph18")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 14.0
+offset_top = 318.5
+offset_right = 109.0
+offset_bottom = 347.5
+grow_horizontal = 1
+grow_vertical = 1
+text = "Save file"
+
+[node name="QuitButton" parent="." unique_id=1709521618 instance=ExtResource("2_3ph18")]
+unique_name_in_owner = true
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 14.0
+offset_top = 351.5
+offset_right = 109.0
+offset_bottom = 380.5
+grow_horizontal = 1
+grow_vertical = 1
+focus_neighbor_top = NodePath("../SaveButton")
+focus_next = NodePath(".")
+focus_previous = NodePath("../SaveButton")
+text = "Quit
+"
+
+[node name="LeftVBoxContainer" type="VBoxContainer" parent="." unique_id=565897528]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="RightVBoxContainer2" type="VBoxContainer" parent="." unique_id=1272479151]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

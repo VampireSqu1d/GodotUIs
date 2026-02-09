@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj1dgj8qawwqt"]
+[gd_scene format=3 uid="uid://cj1dgj8qawwqt"]
 
 [ext_resource type="Script" uid="uid://cvy4wd7ef5n12" path="res://scripts/transition_state_button.gd" id="1_86c8i"]
 
@@ -48,12 +48,20 @@ Button/styles/hover = SubResource("StyleBoxFlat_xgu2h")
 Button/styles/normal = SubResource("StyleBoxFlat_86c8i")
 Button/styles/pressed = SubResource("StyleBoxFlat_k7y2d")
 
-[node name="TransitionStateButton" type="Button"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TransitionStateButton" type="Button" unique_id=853671139]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.5
+offset_top = -14.5
+offset_right = 40.5
+offset_bottom = 14.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme = SubResource("Theme_xgu2h")
 text = "Press me"
 script = ExtResource("1_86c8i")
+tilt_animation_duration = 0.1
