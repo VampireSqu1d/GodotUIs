@@ -1,6 +1,1 @@
 res://default_env.tres
-res://resources/light_pink_shadow.tres
-res://resources/Shaders/stars.gdshader
-res://resources/Shaders/red_circles.gdshader
-res://scenes/strickethrought_button.tscn
-res://scripts/strickethrought_button.gd

@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bvob2in5aev30" path="res://assets/blue_background.jpeg" id="2_d6ord"]
 [ext_resource type="PackedScene" uid="uid://cj1dgj8qawwqt" path="res://scenes/transition_state_button.tscn" id="2_g56v3"]
 [ext_resource type="PackedScene" uid="uid://dnhk88kcnm5rq" path="res://scenes/stars_texture_button.tscn" id="3_ofkx8"]
+[ext_resource type="PackedScene" uid="uid://dhmhhqgf3fbkb" path="res://scenes/strikethrought_button.tscn" id="4_aiqbb"]
 [ext_resource type="Shader" uid="uid://bebw2cg6k7awi" path="res://resources/Shaders/stars.gdshader" id="4_d6ord"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofkx8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d6ord"]
 resource_local_to_scene = true
 shader = ExtResource("4_d6ord")
 shader_parameter/movementLeft = 0.1
@@ -25,7 +26,7 @@ shader_parameter/seed = 0.0
 
 [sub_resource type="Gradient" id="Gradient_k71lp"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_d6ord"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aiqbb"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_k71lp")
 width = 200
@@ -39,9 +40,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cfom8")
-anim_transition = 10
-anim_ease = 1
-buttons = [NodePath("TransitionStateButton"), NodePath("TransitionStateButton2"), NodePath("TransitionStateButton3"), NodePath("TransitionStateButton4")]
+anim_transition = 5
+anim_duration = 0.5
+buttons = [NodePath("TransitionStateButton"), NodePath("TransitionStateButton2"), NodePath("TransitionStateButton3"), NodePath("TransitionStateButton4"), NodePath("StrikethroughtButton"), NodePath("StrikethroughtButton2")]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=865630165]
 layout_mode = 1
@@ -84,16 +85,32 @@ offset_right = -523.0
 offset_bottom = 20.0
 text = "Quit"
 
+[node name="StrikethroughtButton" parent="." unique_id=351113815 instance=ExtResource("4_aiqbb")]
+layout_mode = 0
+offset_left = -178.0
+offset_top = 374.0
+offset_right = -15.0
+offset_bottom = 414.0
+strike_color = Color(0, 0.84313726, 0, 1)
+fill_mode = 1
+
+[node name="StrikethroughtButton2" parent="." unique_id=759794500 instance=ExtResource("4_aiqbb")]
+layout_mode = 0
+offset_left = -178.0
+offset_top = 329.0
+offset_right = -15.0
+offset_bottom = 369.0
+
 [node name="ReferencePoint" type="Control" parent="." unique_id=830724630]
 unique_name_in_owner = true
 anchors_preset = 0
-offset_left = -120.0
+offset_left = -5.0
 offset_top = 140.0
-offset_right = -120.0
+offset_right = -5.0
 offset_bottom = 140.0
 
 [node name="TextureButton" parent="." unique_id=1994816175 instance=ExtResource("3_ofkx8")]
-material = SubResource("ShaderMaterial_ofkx8")
+material = SubResource("ShaderMaterial_d6ord")
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -106,6 +123,6 @@ offset_right = 0.0
 offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 2
-texture_normal = SubResource("GradientTexture2D_d6ord")
+texture_normal = SubResource("GradientTexture2D_aiqbb")
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

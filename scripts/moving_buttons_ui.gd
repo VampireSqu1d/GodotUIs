@@ -19,8 +19,8 @@ func _ready() -> void:
 func setup_buttons() -> void:
 	var counter: int = 0
 	for button: Button in buttons:
-		button.position = Vector2(reference_point.position.x, reference_point.position.y + (buttons_separation * counter))
-		#button.size = Vector2(200, 80)
+		var vector: = Vector2(reference_point.position.x - button.size.x, reference_point.position.y + (buttons_separation * counter))
+		button.position = vector
 		counter +=1
 
 
@@ -28,10 +28,9 @@ func present_buttons() -> void:
 	for button: Button in buttons:
 		var tween: = get_tree().create_tween().set_ease(anim_ease).set_trans(anim_transition)
 		
-		tween.tween_property(button, "position:x", button.position.x + 200, anim_duration)
+		tween.tween_property(button, "position:x", reference_point.position.x + 100, anim_duration)
 		
 		await get_tree().create_timer(0.1).timeout
-	
 
 
 func _on_texture_button_pressed() -> void:
