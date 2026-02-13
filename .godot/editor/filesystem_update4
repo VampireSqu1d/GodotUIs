@@ -1,1 +1,5 @@
 res://default_env.tres
+res://scenes/moving_buttons_ui.tscn
+res://resources/light_pink_shadow.tres
+res://resources/Shaders/stars.gdshader
+res://resources/Shaders/red_circles.gdshader

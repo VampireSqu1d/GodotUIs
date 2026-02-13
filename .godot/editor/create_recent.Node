@@ -1,3 +1,4 @@
+Control
 TextureProgressBar
 ProgressBar
 MarginContainer
@@ -6,10 +7,8 @@ CheckBox
 TextureRect
 Marker2D
 Button
-Control
 VBoxContainer
 GridContainer
 TextureButton
 PanelContainer
 ColorRect
-Panel

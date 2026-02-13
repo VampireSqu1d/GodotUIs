@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cp2k4qsxemgvl"]
+
+[ext_resource type="Script" uid="uid://btbm4qo1r6lk8" path="res://scripts/radial_moving_menu.gd" id="1_223mu"]
+[ext_resource type="PackedScene" uid="uid://cj1dgj8qawwqt" path="res://scenes/transition_state_button.tscn" id="1_xoejn"]
+[ext_resource type="PackedScene" uid="uid://dhmhhqgf3fbkb" path="res://scenes/strikethrought_button.tscn" id="3_1om5q"]
+
+[node name="RadialMovingMenu" type="Control" unique_id=2001469303 node_paths=PackedStringArray("buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_223mu")
+buttons = [NodePath("TransitionStateButton"), NodePath("TransitionStateButton4"), NodePath("TransitionStateButton2"), NodePath("TransitionStateButton3"), NodePath("TransitionStateButton5")]
+
+[node name="TransitionStateButton" parent="." unique_id=853671139 instance=ExtResource("1_xoejn")]
+visible = false
+layout_mode = 1
+offset_left = -431.0
+offset_top = 12.0
+offset_right = -350.0
+offset_bottom = 41.0
+
+[node name="TransitionStateButton4" parent="." unique_id=1438181510 instance=ExtResource("1_xoejn")]
+layout_mode = 1
+offset_left = -458.0
+offset_top = 59.0
+offset_right = -377.0
+offset_bottom = 88.0
+
+[node name="TransitionStateButton2" parent="." unique_id=290695769 instance=ExtResource("1_xoejn")]
+layout_mode = 1
+offset_left = -431.0
+offset_top = -36.0
+offset_right = -350.0
+offset_bottom = -7.0
+
+[node name="TransitionStateButton3" parent="." unique_id=148828951 instance=ExtResource("1_xoejn")]
+layout_mode = 1
+offset_left = -465.0
+offset_top = -84.0
+offset_right = -384.0
+offset_bottom = -55.0
+
+[node name="TransitionStateButton5" parent="." unique_id=1036659237 instance=ExtResource("1_xoejn")]
+layout_mode = 1
+offset_left = -465.0
+offset_top = -84.0
+offset_right = -384.0
+offset_bottom = -55.0
+
+[node name="ReferencePoint" type="Control" parent="." unique_id=203393626]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="StrikethroughtButton" parent="." unique_id=351113815 instance=ExtResource("3_1om5q")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -20.0
+offset_right = 0.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Show buttons"
+label_text = "Show buttons"
+
+[connection signal="toggled" from="StrikethroughtButton" to="." method="_on_strikethrought_button_toggled"]

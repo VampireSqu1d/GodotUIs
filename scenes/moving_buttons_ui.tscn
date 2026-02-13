@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dhmhhqgf3fbkb" path="res://scenes/strikethrought_button.tscn" id="4_aiqbb"]
 [ext_resource type="Shader" uid="uid://bebw2cg6k7awi" path="res://resources/Shaders/stars.gdshader" id="4_d6ord"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d6ord"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aiqbb"]
 resource_local_to_scene = true
 shader = ExtResource("4_d6ord")
 shader_parameter/movementLeft = 0.1
@@ -26,7 +26,7 @@ shader_parameter/seed = 0.0
 
 [sub_resource type="Gradient" id="Gradient_k71lp"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_aiqbb"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cmus5"]
 resource_local_to_scene = true
 gradient = SubResource("Gradient_k71lp")
 width = 200
@@ -40,8 +40,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cfom8")
-anim_transition = 5
-anim_duration = 0.5
+anim_transition = 11
+anim_ease = 1
 buttons = [NodePath("TransitionStateButton"), NodePath("TransitionStateButton2"), NodePath("TransitionStateButton3"), NodePath("TransitionStateButton4"), NodePath("StrikethroughtButton"), NodePath("StrikethroughtButton2")]
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=865630165]
@@ -110,7 +110,7 @@ offset_right = -5.0
 offset_bottom = 140.0
 
 [node name="TextureButton" parent="." unique_id=1994816175 instance=ExtResource("3_ofkx8")]
-material = SubResource("ShaderMaterial_d6ord")
+material = SubResource("ShaderMaterial_aiqbb")
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -123,6 +123,7 @@ offset_right = 0.0
 offset_bottom = 16.0
 grow_horizontal = 0
 grow_vertical = 2
-texture_normal = SubResource("GradientTexture2D_aiqbb")
+texture_normal = SubResource("GradientTexture2D_cmus5")
+hover_bg_color = Color(0.79607844, 0.68235296, 0.24705882, 1)
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
